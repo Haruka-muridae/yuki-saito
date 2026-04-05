@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Yuki Saito</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Serif JP', serif; background: #f5f8fc; color: #0f2740; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 2rem; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; letter-spacing: .15em; color: #1a3a5c; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+    .page-title span { font-size: 12px; color: #7a9abb; font-family: sans-serif; letter-spacing: .1em; }
+    .tab-bar { display: flex; gap: 8px; margin-bottom: 2rem; flex-wrap: wrap; }
+    .tab-btn { font-size: 12px; font-family: sans-serif; letter-spacing: .1em; padding: 8px 20px; border: 1px solid #d6e0eb; background: #fff; color: #4a6a8a; cursor: pointer; transition: all .2s; border-radius: 4px; }
+    .tab-btn.active { background: #1a3a5c; color: #fff; border-color: #1a3a5c; }
+    .card { background: #fff; border: 1px solid #d6e0eb; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; }
+    .card-title { font-size: 11px; color: #7a9abb; letter-spacing: .14em; font-family: sans-serif; margin-bottom: 1rem; }
+    .field { width: 100%; font-family: sans-serif; font-size: 13px; border: 1px solid #d6e0eb; border-radius: 4px; padding: 8px 12px; outline: none; color: #0f2740; background: #fff; }
+    .field:focus { border-color: #1a3a5c; }
+    textarea.field { resize: vertical; min-height: 80px; line-height: 1.7; }
+    .btn-primary { background: #1a3a5c; color: #fff; font-family: sans-serif; font-size: 12px; letter-spacing: .08em; border: none; border-radius: 4px; padding: 9px 22px; cursor: pointer; transition: background .2s; }
+    .btn-primary:hover { background: #0f2740; }
+    .btn-primary:disabled { background: #7a9abb; cursor: not-allowed; }
+    .btn-ghost { background: none; border: none; font-size: 11px; color: #7a9abb; font-family: sans-serif; cursor: pointer; padding: 4px 8px; }
+    .btn-ghost:hover { color: #c0392b; }
+    .item-row { display: flex; align-items: center; padding: 10px 12px; border: 1px solid #d6e0eb; border-radius: 4px; background: #fff; margin-bottom: 6px; gap: 10px; }
+    .fields-grid { display: flex; flex-direction: column; gap: 8px; }
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a3a5c; color: #fff; font-family: sans-serif; font-size: 13px; letter-spacing: .06em; padding: 12px 20px; border-radius: 6px; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    .toast.show { opacity: 1; }
+    .avatar-preview { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; border: 2px solid #d6e0eb; background: #dce8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
+    .count-badge { font-size: 11px; color: #1a3a5c; font-family: sans-serif; margin-left: 6px; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="page-title">
+    YUKI SAITO <span>— Admin</span>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('profile',this)">プロフィール</button>
+    <button class="tab-btn" onclick="switchTab('skills',this)">スキル・専門領域</button>
+    <button class="tab-btn" onclick="switchTab('services',this)">サービス・商品</button>
+    <button class="tab-btn" onclick="switchTab('hobbies',this)">趣味・ライク</button>
+  </div>
+
+  <!-- ===== プロフィール ===== -->
+  <div id="tab-profile">
+    <div class="card">
+      <p class="card-title">プロフィール写真</p>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.75rem;">
+        <div class="avatar-preview" id="avatar-preview">
+          <img id="avatar-img" src="" alt="" style="display:none;">
+          <span style="font-size:10px;color:#7a9abb;font-family:sans-serif;text-align:center;" id="avatar-empty">未設定</span>
+        </div>
+        <div style="flex:1;">
+          <input class="field" id="prof-photo" placeholder="画像URL（例：https://...jpg）" oninput="previewAvatar()">
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="card-title">活動拠点</p>
+      <input class="field" id="prof-location" placeholder="例：神奈川・東京を拠点に活動">
+    </div>
+    <div class="card">
+      <p class="card-title">自己紹介文</p>
+      <textarea class="field" id="prof-bio" placeholder="例：TSアセットマネジメント合同会社にてシステムアドバイザーとして活動しています。"></textarea>
+    </div>
+    <button class="btn-primary" id="save-profile-btn" onclick="saveProfile()">保存してサイトに反映</button>
+  </div>
+
+  <!-- ===== スキル ===== -->
+  <div id="tab-skills" style="display:none;">
+    <div class="card">
+      <p class="card-title">新しいスキルを追加</p>
+      <div class="fields-grid">
+        <input class="field" id="sk-name" placeholder="スキル名（例：データ分析・プログラム開発）">
+        <input class="field" id="sk-sub" placeholder="英語サブタイトル（例：Data & Development）">
+        <button class="btn-primary" onclick="addSkill()" style="align-self:flex-start;" id="add-skill-btn">追加する</button>
+      </div>
+    </div>
+    <p class="card-title" style="margin-bottom:.5rem;">登録済みスキル<span class="count-badge" id="skill-count"></span></p>
+    <div id="skill-list"><p style="font-size:13px;color:#7a9abb;font-family:sans-serif;">読み込み中...</p></div>
+  </div>
+
+  <!-- ===== サービス ===== -->
+  <div id="tab-services" style="display:none;">
+    <div class="card">
+      <p class="card-title">新しいサービス・商品を追加</p>
+      <div class="fields-grid">
+        <input class="field" id="sv-title" placeholder="サービス名・商品名">
+        <input class="field" id="sv-desc" placeholder="説明（例：オンライン個別指導）">
+        <input class="field" id="sv-url" placeholder="LP の URL（例：https://...）">
+        <input class="field" id="sv-img" placeholder="サムネイル画像URL（例：https://...jpg）">
+        <button class="btn-primary" onclick="addService()" style="align-self:flex-start;" id="add-service-btn">追加する</button>
+      </div>
+    </div>
+    <p class="card-title" style="margin-bottom:.5rem;">登録済みサービス・商品<span class="count-badge" id="service-count"></span></p>
+    <div id="service-list"><p style="font-size:13px;color:#7a9abb;font-family:sans-serif;">読み込み中...</p></div>
+  </div>
+
+  <!-- ===== 趣味 ===== -->
+  <div id="tab-hobbies" style="display:none;">
+    <div class="card">
+      <p class="card-title">新しい趣味・ライクを追加</p>
+      <div class="fields-grid">
+        <input class="field" id="hb-title" placeholder="タイトル（例：音楽制作）">
+        <input class="field" id="hb-desc" placeholder="説明">
+        <input class="field" id="hb-url" placeholder="関連URL（任意・なくても可）">
+        <input class="field" id="hb-img" placeholder="画像URL（例：https://...jpg）">
+        <button class="btn-primary" onclick="addHobby()" style="align-self:flex-start;" id="add-hobby-btn">追加する</button>
+      </div>
+    </div>
+    <p class="card-title" style="margin-bottom:.5rem;">登録済み趣味・ライク<span class="count-badge" id="hobby-count"></span></p>
+    <div id="hobby-list"><p style="font-size:13px;color:#7a9abb;font-family:sans-serif;">読み込み中...</p></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var GAS_URL = 'https://script.google.com/macros/s/AKfycby5ZWHLSUU2EBMm_8oKC9FkLqsFnsqSUMA6typp3RyZTIJJiX_RifWbhPM73I1vhRmm/exec';
+
+var skillsData = [];
+var servicesData = [];
+var hobbiesData = [];
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2500);
+}
+
+function setLoading(btnId, loading) {
+  var btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.textContent = loading ? '処理中...' : btn.dataset.label || btn.textContent;
+}
+
+function gasPost(body, cb) {
+  fetch(GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify(body)
+  }).then(function(r) { return r.json(); })
+    .then(cb)
+    .catch(function() { showToast('通信エラーが発生しました'); });
+}
+
+function switchTab(tab, btn) {
+  ['profile', 'skills', 'services', 'hobbies'].forEach(function(t) {
+    document.getElementById('tab-' + t).style.display = t === tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+
+// ===== プロフィール =====
+function previewAvatar() {
+  var url = document.getElementById('prof-photo').value.trim();
+  var img = document.getElementById('avatar-img');
+  var empty = document.getElementById('avatar-empty');
+  if (url) {
+    img.src = url;
+    img.style.display = 'block';
+    empty.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    empty.style.display = 'block';
+  }
+}
+
+function loadProfile() {
+  fetch(GAS_URL + '?action=get&sheet=profile')
+    .then(function(r) { return r.json(); })
+    .then(function(r) {
+      if (!r.data) return;
+      var p = r.data;
+      document.getElementById('prof-photo').value = p.photo || '';
+      document.getElementById('prof-location').value = p.location || '';
+      document.getElementById('prof-bio').value = p.bio || '';
+      previewAvatar();
+    }).catch(function() {});
+}
+
+function saveProfile() {
+  var btn = document.getElementById('save-profile-btn');
+  btn.disabled = true;
+  btn.textContent = '保存中...';
+  var data = {
+    photo: document.getElementById('prof-photo').value.trim(),
+    location: document.getElementById('prof-location').value.trim(),
+    bio: document.getElementById('prof-bio').value.trim()
+  };
+  gasPost({ action: 'set', sheet: 'profile', data: data }, function(r) {
+    btn.disabled = false;
+    btn.textContent = '保存してサイトに反映';
+    if (r.success) { showToast('プロフィールを保存しました'); }
+    else { showToast('保存に失敗しました'); }
+  });
+}
+
+// ===== スキル =====
+function loadSkills() {
+  fetch(GAS_URL + '?action=get&sheet=skills')
+    .then(function(r) { return r.json(); })
+    .then(function(r) { skillsData = r.data || []; renderSkillList(); })
+    .catch(function() {});
+}
+
+function renderSkillList() {
+  var el = document.getElementById('skill-list');
+  var cnt = document.getElementById('skill-count');
+  cnt.textContent = skillsData.length ? '（' + skillsData.length + '件）' : '';
+  if (!skillsData.length) { el.innerHTML = '<p style="font-size:13px;color:#7a9abb;font-family:sans-serif;padding:8px 0;">まだ登録されていません</p>'; return; }
+  el.innerHTML = skillsData.map(function(s, i) {
+    return '<div class="item-row"><div style="flex:1;min-width:0;"><span style="font-size:13px;color:#0f2740;">' + s.name + '</span>' + (s.sub ? '<span style="font-size:11px;color:#7a9abb;margin-left:10px;font-family:sans-serif;">' + s.sub + '</span>' : '') + '</div><button class="btn-ghost" onclick="deleteSkill(' + i + ')">削除</button></div>';
+  }).join('');
+}
+
+function addSkill() {
+  var n = document.getElementById('sk-name').value.trim();
+  if (!n) return;
+  var btn = document.getElementById('add-skill-btn');
+  btn.disabled = true; btn.textContent = '追加中...';
+  gasPost({ action: 'add', sheet: 'skills', data: { name: n, sub: document.getElementById('sk-sub').value.trim() } }, function(r) {
+    btn.disabled = false; btn.textContent = '追加する';
+    if (r.success) {
+      document.getElementById('sk-name').value = '';
+      document.getElementById('sk-sub').value = '';
+      loadSkills();
+      showToast('スキルを追加しました');
+    }
+  });
+}
+
+function deleteSkill(i) {
+  if (!confirm('「' + skillsData[i].name + '」を削除しますか？')) return;
+  gasPost({ action: 'delete', sheet: 'skills', index: i }, function(r) {
+    if (r.success) { loadSkills(); showToast('削除しました'); }
+  });
+}
+
+// ===== サービス =====
+function loadServices() {
+  fetch(GAS_URL + '?action=get&sheet=services')
+    .then(function(r) { return r.json(); })
+    .then(function(r) { servicesData = r.data || []; renderServiceList(); })
+    .catch(function() {});
+}
+
+function renderServiceList() {
+  var el = document.getElementById('service-list');
+  var cnt = document.getElementById('service-count');
+  cnt.textContent = servicesData.length ? '（' + servicesData.length + '件）' : '';
+  if (!servicesData.length) { el.innerHTML = '<p style="font-size:13px;color:#7a9abb;font-family:sans-serif;padding:8px 0;">まだ登録されていません</p>'; return; }
+  el.innerHTML = servicesData.map(function(item, i) {
+    var thumb = item.img ? '<img src="' + item.img + '" style="width:44px;height:44px;object-fit:cover;border-radius:4px;border:1px solid #d6e0eb;flex-shrink:0;" onerror="this.style.display=\'none\'">' : '';
+    var urlTag = item.url ? '<span style="font-size:10px;color:#7a9abb;font-family:sans-serif;margin-left:8px;">' + item.url.replace(/^https?:\/\//, '').substring(0, 30) + '...</span>' : '';
+    return '<div class="item-row">' + thumb + '<div style="flex:1;min-width:0;"><p style="font-size:13px;color:#0f2740;margin:0 0 2px;">' + item.title + '</p><p style="font-size:11px;color:#7a9abb;font-family:sans-serif;margin:0;">' + item.desc + urlTag + '</p></div><button class="btn-ghost" onclick="deleteService(' + i + ')">削除</button></div>';
+  }).join('');
+}
+
+function addService() {
+  var t = document.getElementById('sv-title').value.trim();
+  if (!t) return;
+  var btn = document.getElementById('add-service-btn');
+  btn.disabled = true; btn.textContent = '追加中...';
+  gasPost({ action: 'add', sheet: 'services', data: { title: t, desc: document.getElementById('sv-desc').value.trim(), url: document.getElementById('sv-url').value.trim(), img: document.getElementById('sv-img').value.trim() } }, function(r) {
+    btn.disabled = false; btn.textContent = '追加する';
+    if (r.success) {
+      ['sv-title','sv-desc','sv-url','sv-img'].forEach(function(id) { document.getElementById(id).value = ''; });
+      loadServices();
+      showToast('サービスを追加しました');
+    }
+  });
+}
+
+function deleteService(i) {
+  if (!confirm('「' + servicesData[i].title + '」を削除しますか？')) return;
+  gasPost({ action: 'delete', sheet: 'services', index: i }, function(r) {
+    if (r.success) { loadServices(); showToast('削除しました'); }
+  });
+}
+
+// ===== 趣味 =====
+function loadHobbies() {
+  fetch(GAS_URL + '?action=get&sheet=hobbies')
+    .then(function(r) { return r.json(); })
+    .then(function(r) { hobbiesData = r.data || []; renderHobbyList(); })
+    .catch(function() {});
+}
+
+function renderHobbyList() {
+  var el = document.getElementById('hobby-list');
+  var cnt = document.getElementById('hobby-count');
+  cnt.textContent = hobbiesData.length ? '（' + hobbiesData.length + '件）' : '';
+  if (!hobbiesData.length) { el.innerHTML = '<p style="font-size:13px;color:#7a9abb;font-family:sans-serif;padding:8px 0;">まだ登録されていません</p>'; return; }
+  el.innerHTML = hobbiesData.map(function(item, i) {
+    var thumb = item.img ? '<img src="' + item.img + '" style="width:44px;height:44px;object-fit:cover;border-radius:4px;border:1px solid #d6e0eb;flex-shrink:0;" onerror="this.style.display=\'none\'">' : '';
+    var urlTag = item.url ? '<span style="font-size:10px;color:#7a9abb;font-family:sans-serif;margin-left:8px;">' + item.url.replace(/^https?:\/\//, '').substring(0, 30) + '...</span>' : '';
+    return '<div class="item-row">' + thumb + '<div style="flex:1;min-width:0;"><p style="font-size:13px;color:#0f2740;margin:0 0 2px;">' + item.title + '</p><p style="font-size:11px;color:#7a9abb;font-family:sans-serif;margin:0;">' + item.desc + urlTag + '</p></div><button class="btn-ghost" onclick="deleteHobby(' + i + ')">削除</button></div>';
+  }).join('');
+}
+
+function addHobby() {
+  var t = document.getElementById('hb-title').value.trim();
+  if (!t) return;
+  var btn = document.getElementById('add-hobby-btn');
+  btn.disabled = true; btn.textContent = '追加中...';
+  gasPost({ action: 'add', sheet: 'hobbies', data: { title: t, desc: document.getElementById('hb-desc').value.trim(), url: document.getElementById('hb-url').value.trim(), img: document.getElementById('hb-img').value.trim() } }, function(r) {
+    btn.disabled = false; btn.textContent = '追加する';
+    if (r.success) {
+      ['hb-title','hb-desc','hb-url','hb-img'].forEach(function(id) { document.getElementById(id).value = ''; });
+      loadHobbies();
+      showToast('趣味・ライクを追加しました');
+    }
+  });
+}
+
+function deleteHobby(i) {
+  if (!confirm('「' + hobbiesData[i].title + '」を削除しますか？')) return;
+  gasPost({ action: 'delete', sheet: 'hobbies', index: i }, function(r) {
+    if (r.success) { loadHobbies(); showToast('削除しました'); }
+  });
+}
+
+// 初期ロード
+loadProfile();
+loadSkills();
+loadServices();
+loadHobbies();
+</script>
+</body>
+</html>

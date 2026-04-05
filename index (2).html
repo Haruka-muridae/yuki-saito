@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yuki Saito</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Serif JP', serif; background: #fff; color: #0f2740; }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    .nav-link { font-size: 12px; color: #4a5568; letter-spacing: .08em; text-decoration: none; transition: color .2s; }
+    .nav-link:hover { color: #1a3a5c; }
+    .sec-label { font-size: 11px; letter-spacing: .2em; color: #1a3a5c; font-family: sans-serif; white-space: nowrap; }
+    .sec-rule { flex: 1; height: .5px; background: #d6e0eb; }
+    .skill-card { background: #fff; padding: 1.5rem; border: 1.5px solid transparent; transition: border-color .2s; }
+    .skill-card:hover { border-color: #1a3a5c; }
+    .lp-card { background: #fff; border: 1px solid #d6e0eb; border-radius: 6px; overflow: hidden; transition: box-shadow .2s, border-color .2s; }
+    .lp-card:hover { border-color: #1a3a5c; box-shadow: 0 4px 12px rgba(26,58,92,.08); }
+    .card-link-badge { display: inline-block; font-size: 10px; font-family: sans-serif; letter-spacing: .08em; color: #7a9abb; border: 1px solid #d6e0eb; border-radius: 3px; padding: 2px 7px; margin-top: 6px; }
+    .empty-box { width: 100%; padding: 2.5rem 1rem; border: 1px dashed #c8d8e8; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #a8c0d4; font-family: sans-serif; letter-spacing: .08em; }
+    .thumb-preview { width: 100%; height: 130px; object-fit: cover; display: block; background: #f5f8fc; }
+    .thumb-placeholder { width: 100%; height: 130px; background: #f5f8fc; display: flex; align-items: center; justify-content: center; }
+    .avatar-wrap { width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 3px solid #fff; box-shadow: 0 2px 16px rgba(26,58,92,.15); flex-shrink: 0; background: #dce8f0; display: flex; align-items: center; justify-content: center; }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    nav { position: sticky; top: 0; background: #fff; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; border-bottom: 1px solid #d6e0eb; }
+    section { padding: 3rem 2rem 2rem; }
+    section + section { padding-top: 0; }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      h1 { font-size: 20px !important; }
+      .avatar-wrap { width: 100px; height: 100px; }
+      .grid-3 { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:6px;height:24px;background:#1a3a5c;"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:.18em;color:#1a3a5c;">YUKI SAITO</span>
+    </div>
+    <div class="nav-links" style="display:flex;gap:2rem;">
+      <a class="nav-link" href="#skills">スキル</a>
+      <a class="nav-link" href="#services">サービス</a>
+      <a class="nav-link" href="#hobbies">趣味・ライク</a>
+      <a class="nav-link" href="#contact">お問い合わせ</a>
+    </div>
+  </nav>
+
+  <header style="padding:3rem 2rem;background:#f5f8fc;border-bottom:1px solid #d6e0eb;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:2rem;">
+      <div style="flex:1;">
+        <h1 style="font-size:28px;font-weight:400;letter-spacing:.06em;color:#0f2740;margin:0;line-height:1.5;">
+          齋藤 悠貴<span style="font-size:17px;color:#4a6a8a;font-weight:300;margin-left:1rem;font-family:'Cormorant Garamond',serif;letter-spacing:.15em;">Yuki Saito</span>
+        </h1>
+        <div id="site-location"></div>
+        <div id="site-bio"></div>
+        <div style="margin-top:1.5rem;width:48px;height:2px;background:#1a3a5c;"></div>
+      </div>
+      <div class="avatar-wrap" id="avatar-wrap">
+        <span style="font-size:11px;color:#7a9abb;font-family:sans-serif;text-align:center;line-height:1.6;" id="photo-placeholder">写真<br>未設定</span>
+        <img id="site-photo" src="" alt="profile" style="display:none;width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+  </header>
+
+  <section id="skills">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;">
+      <span class="sec-label">スキル・専門領域</span>
+      <div class="sec-rule"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:12px;color:#7a9abb;letter-spacing:.1em;">Skills</span>
+    </div>
+    <div id="skill-display"><div class="empty-box">読み込み中...</div></div>
+  </section>
+
+  <section id="services">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;">
+      <span class="sec-label">サービス・商品</span>
+      <div class="sec-rule"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:12px;color:#7a9abb;letter-spacing:.1em;">Services</span>
+    </div>
+    <div id="service-display"><div class="empty-box">読み込み中...</div></div>
+  </section>
+
+  <section id="hobbies">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;">
+      <span class="sec-label">趣味・ライク</span>
+      <div class="sec-rule"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:12px;color:#7a9abb;letter-spacing:.1em;">Likes</span>
+    </div>
+    <div id="hobby-display"><div class="empty-box">読み込み中...</div></div>
+  </section>
+
+  <section id="contact" style="padding-bottom:3rem;">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;">
+      <span class="sec-label">お問い合わせ</span>
+      <div class="sec-rule"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:12px;color:#7a9abb;letter-spacing:.1em;">Contact</span>
+    </div>
+    <div style="display:flex;gap:2rem;flex-wrap:wrap;">
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <span style="font-size:11px;color:#7a9abb;font-family:sans-serif;letter-spacing:.1em;">Email</span>
+        <span style="font-size:13px;color:#0f2740;">yuki.s@tsam-jp.com</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <span style="font-size:11px;color:#7a9abb;font-family:sans-serif;letter-spacing:.1em;">Phone</span>
+        <span style="font-size:13px;color:#0f2740;">090-1261-4930</span>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:1.5rem 2rem;border-top:1px solid #d6e0eb;background:#f5f8fc;">
+    <p style="font-size:11px;color:#7a9abb;margin:0;letter-spacing:.08em;font-family:sans-serif;">© Yuki Saito</p>
+  </footer>
+
+</div>
+<script>
+var GAS_URL = 'https://script.google.com/macros/s/AKfycby5ZWHLSUU2EBMm_8oKC9FkLqsFnsqSUMA6typp3RyZTIJJiX_RifWbhPM73I1vhRmm/exec';
+
+function gasGet(sheet, cb) {
+  var s = document.createElement('script');
+  var cbName = '_cb_' + sheet + '_' + Date.now();
+  window[cbName] = function(data) { cb(data); delete window[cbName]; document.body.removeChild(s); };
+  s.src = GAS_URL + '?action=get&sheet=' + sheet + '&callback=' + cbName;
+  document.body.appendChild(s);
+}
+
+function renderProfile(p) {
+  var locEl = document.getElementById('site-location');
+  var bioEl = document.getElementById('site-bio');
+  var photoEl = document.getElementById('site-photo');
+  var placeholder = document.getElementById('photo-placeholder');
+  locEl.innerHTML = p.location ? '<p style="font-size:13px;color:#4a6a8a;margin:.75rem 0 0;line-height:1.8;">' + p.location + '</p>' : '';
+  bioEl.innerHTML = p.bio ? '<p style="font-size:13px;color:#4a6a8a;margin:.75rem 0 0;line-height:1.9;max-width:420px;">' + p.bio + '</p>' : '';
+  if (p.photo) {
+    photoEl.src = p.photo;
+    photoEl.style.display = 'block';
+    placeholder.style.display = 'none';
+  }
+}
+
+function renderSkills(arr) {
+  var el = document.getElementById('skill-display');
+  if (!arr || !arr.length) { el.innerHTML = '<div class="empty-box">スキルはまだ登録されていません</div>'; return; }
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#d6e0eb;border:1px solid #d6e0eb;">' +
+    arr.map(function(s, i) {
+      return '<div class="skill-card"><p style="font-size:11px;letter-spacing:.2em;color:#7a9abb;margin:0 0 .6rem;font-family:sans-serif;">' + String(i+1).padStart(2,'0') + '</p><p style="font-size:14px;color:#0f2740;margin:0 0 .4rem;line-height:1.8;">' + s.name + '</p><p style="font-size:11px;color:#7a9abb;margin:0;letter-spacing:.1em;font-family:sans-serif;">' + s.sub + '</p></div>';
+    }).join('') + '</div>';
+}
+
+function renderCards(arr, displayId, emptyMsg) {
+  var el = document.getElementById(displayId);
+  if (!arr || !arr.length) { el.innerHTML = '<div class="empty-box">' + emptyMsg + '</div>'; return; }
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;" class="grid-3">' +
+    arr.map(function(item) {
+      var thumbHtml = item.img
+        ? '<img src="' + item.img + '" class="thumb-preview" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">' + '<div class="thumb-placeholder" style="display:none;"><span style="font-size:11px;color:#7a9abb;font-family:sans-serif;">No image</span></div>'
+        : '<div class="thumb-placeholder"><span style="font-size:11px;color:#7a9abb;font-family:sans-serif;">No image</span></div>';
+      var wrapS = item.url ? '<a href="' + item.url + '" target="_blank" style="text-decoration:none;display:block;">' : '<div>';
+      var wrapE = item.url ? '</a>' : '</div>';
+      var badge = item.url ? '<span class="card-link-badge">LINK</span>' : '';
+      return '<div class="lp-card">' + wrapS + thumbHtml + wrapE + '<div style="padding:.875rem 1rem;"><p style="font-size:13px;color:#0f2740;margin:0 0 .3rem;line-height:1.6;">' + item.title + '</p><p style="font-size:11px;color:#7a9abb;font-family:sans-serif;letter-spacing:.05em;margin:0;">' + item.desc + '</p>' + badge + '</div></div>';
+    }).join('') + '</div>';
+}
+
+// JSONP方式でデータ取得 — GASがcallbackパラメータを返せない場合はfetchに切り替え
+fetch(GAS_URL + '?action=get&sheet=profile')
+  .then(function(r){ return r.json(); })
+  .then(function(r){ if(r.data) renderProfile(r.data); })
+  .catch(function(){});
+
+fetch(GAS_URL + '?action=get&sheet=skills')
+  .then(function(r){ return r.json(); })
+  .then(function(r){ renderSkills(r.data); })
+  .catch(function(){ document.getElementById('skill-display').innerHTML='<div class="empty-box">データを取得できませんでした</div>'; });
+
+fetch(GAS_URL + '?action=get&sheet=services')
+  .then(function(r){ return r.json(); })
+  .then(function(r){ renderCards(r.data,'service-display','サービスはまだ登録されていません'); })
+  .catch(function(){ document.getElementById('service-display').innerHTML='<div class="empty-box">データを取得できませんでした</div>'; });
+
+fetch(GAS_URL + '?action=get&sheet=hobbies')
+  .then(function(r){ return r.json(); })
+  .then(function(r){ renderCards(r.data,'hobby-display','趣味はまだ登録されていません'); })
+  .catch(function(){ document.getElementById('hobby-display').innerHTML='<div class="empty-box">データを取得できませんでした</div>'; });
+</script>
+</body>
+</html>
