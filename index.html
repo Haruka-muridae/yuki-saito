@@ -1,1823 +1,350 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yuki Saito "悠" | システム・教育・営業コンサルタント【公式】</title>
-  <meta name="description" content="IT導入・教育支援・営業代行のご相談は Yuki Saito（通称：悠）へ。中小企業・個人事業主・保護者の方の課題に完全オーダーメイドで伴走します。まずはお気軽にご相談ください。">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-
-  <style>
-    /* ============================================
-       CSS Variables & Reset
-    ============================================ */
-    :root {
-      --navy:      #1C2B3A;
-      --navy-mid:  #243447;
-      --gold:      #C9A96E;
-      --gold-lt:   #DFC49A;
-      --cream:     #F8F6F2;
-      --beige:     #EDE8DF;
-      --beige-mid: #E0D8CC;
-      --ink:       #2E2E2E;
-      --ink-mid:   #4A4A4A;
-      --ink-lt:    #7A7A7A;
-      --white:     #FFFFFF;
-
-      --serif-en:  'Cormorant Garamond', serif;
-      --serif-ja:  'Noto Serif JP', serif;
-      --sans-ja:   'Noto Sans JP', sans-serif;
-      --mono:      'DM Mono', monospace;
-
-      --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-in:   cubic-bezier(0.7, 0, 0.84, 0);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-
-    body {
-      font-family: var(--sans-ja);
-      background: var(--cream);
-      color: var(--ink);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    img { display: block; max-width: 100%; }
-    a { text-decoration: none; color: inherit; }
-
-    /* ============================================
-       Utility
-    ============================================ */
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 clamp(20px, 5vw, 60px);
-    }
-
-    .tag {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid var(--gold);
-      padding: 4px 12px;
-      border-radius: 0;
-    }
-
-    .section-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--ink-lt);
-      margin-bottom: 16px;
-    }
-
-    /* ============================================
-       Scroll Reveal
-    ============================================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-
-    /* ============================================
-       Header / Nav
-    ============================================ */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 0 clamp(20px, 5vw, 60px);
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(248, 246, 242, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--beige-mid);
-      transition: box-shadow 0.3s ease;
-    }
-
-    header.scrolled {
-      box-shadow: 0 2px 24px rgba(28, 43, 58, 0.08);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-mark {
-      width: 38px;
-      height: 38px;
-      flex-shrink: 0;
-    }
-
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1;
-    }
-
-    .logo-name {
-      font-family: var(--serif-ja);
-      font-size: 1.05rem;
-      font-weight: 400;
-      color: var(--navy);
-      letter-spacing: 0.08em;
-    }
-
-    .logo-sub {
-      font-family: var(--mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      color: var(--gold);
-      margin-top: 4px;
-      text-transform: uppercase;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-
-    nav a {
-      font-family: var(--sans-ja);
-      font-size: 0.8rem;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      color: var(--ink-mid);
-      transition: color 0.2s ease;
-      white-space: nowrap;
-    }
-
-    nav a:hover { color: var(--navy); }
-
-    .nav-cta {
-      font-family: var(--sans-ja);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      color: var(--white) !important;
-      background: var(--navy);
-      padding: 9px 20px;
-      border: 1px solid var(--navy);
-      transition: background 0.25s ease, color 0.25s ease !important;
-    }
-
-    .nav-cta:hover {
-      background: transparent !important;
-      color: var(--navy) !important;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 1.5px;
-      background: var(--navy);
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-
-    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 68px; left: 0; right: 0; bottom: 0;
-      background: var(--cream);
-      z-index: 99;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-    }
-
-    .mobile-menu.open { display: flex; }
-
-    .mobile-menu a {
-      font-family: var(--serif-ja);
-      font-size: 1.4rem;
-      font-weight: 300;
-      letter-spacing: 0.1em;
-      color: var(--navy);
-    }
-
-    .mobile-menu .nav-cta {
-      font-family: var(--sans-ja) !important;
-      font-size: 0.9rem !important;
-      color: var(--white) !important;
-      background: var(--navy) !important;
-      padding: 14px 40px !important;
-    }
-
-    @media (max-width: 768px) {
-      nav { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    /* ============================================
-       Hero (修正箇所)
-    ============================================ */
-    .hero-section {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding-top: 68px;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding-left: clamp(20px, 5vw, 60px);
-      padding-right: clamp(20px, 5vw, 60px);
-      position: relative;
-      z-index: 1;
-      /* 空白削除のための修正：min-heightを削除または縮小 */
-      min-height: auto; 
-    }
-
-    @media (min-width: 769px) {
-      .hero { 
-        /* 固定の100svhをやめ、コンテンツに応じた余白を設定 */
-        padding-top: 120px;
-        padding-bottom: 100px; 
-      }
-    }
-
-    .hero-bg-text {
-      position: absolute;
-      top: 50%;
-      right: -2%;
-      transform: translateY(-50%);
-      font-family: var(--serif-en);
-      font-size: clamp(100px, 18vw, 220px);
-      font-weight: 300;
-      font-style: italic;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(28, 43, 58, 0.06);
-      pointer-events: none;
-      line-height: 1;
-      white-space: nowrap;
-      user-select: none;
-    }
-
-    .hero-content {
-      /* パディングを調整して空白を制御 */
-      padding: 40px 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out) 0.2s forwards;
-    }
-
-    .hero-catch {
-      font-family: var(--serif-ja);
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
-      font-weight: 300;
-      line-height: 1.65;
-      letter-spacing: 0.04em;
-      color: var(--navy);
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: fadeUp 0.9s var(--ease-out) 0.35s forwards;
-    }
-
-    .hero-catch em {
-      font-style: normal;
-      color: var(--gold);
-      font-weight: 400;
-    }
-
-    .hero-sub {
-      font-family: var(--sans-ja);
-      font-size: clamp(0.82rem, 1.4vw, 0.95rem);
-      font-weight: 300;
-      line-height: 2;
-      color: var(--ink-mid);
-      max-width: 440px;
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeUp 0.9s var(--ease-out) 0.5s forwards;
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.9s var(--ease-out) 0.65s forwards;
-    }
-
-    .btn-primary {
-      font-family: var(--sans-ja);
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      color: var(--white);
-      background: var(--navy);
-      border: 1px solid var(--navy);
-      padding: 14px 32px;
-      cursor: pointer;
-      transition: background 0.25s ease, color 0.25s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-primary:hover {
-      background: transparent;
-      color: var(--navy);
-    }
-
-    .btn-secondary {
-      font-family: var(--sans-ja);
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      color: var(--navy);
-      background: transparent;
-      border: 1px solid var(--navy);
-      padding: 14px 32px;
-      cursor: pointer;
-      transition: background 0.25s ease, color 0.25s ease;
-    }
-
-    .btn-secondary:hover {
-      background: var(--navy);
-      color: var(--white);
-    }
-
-    .btn-arrow {
-      display: inline-block;
-      font-size: 1rem;
-      transition: transform 0.25s ease;
-    }
-
-    .btn-primary:hover .btn-arrow { transform: translateX(4px); }
-
-    .hero-image-wrap {
-      position: relative;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-image-frame {
-      position: relative;
-      width: clamp(280px, 38vw, 480px);
-      aspect-ratio: 3/4;
-    }
-
-    .hero-image-frame::before {
-      content: '';
-      position: absolute;
-      top: 20px; right: -20px;
-      width: 100%; height: 100%;
-      border: 1px solid var(--gold);
-      z-index: 0;
-    }
-
-    .hero-photo {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background: var(--beige);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .hero-photo-placeholder {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(145deg, var(--beige) 0%, var(--beige-mid) 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .hero-photo-placeholder svg {
-      width: 80px;
-      height: 80px;
-      opacity: 0.3;
-    }
-
-    .hero-photo-placeholder span {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      color: var(--ink-lt);
-      text-transform: uppercase;
-    }
-
-    .hero-badge {
-      position: absolute;
-      bottom: -20px;
-      left: -20px;
-      z-index: 2;
-      background: var(--navy);
-      color: var(--white);
-      padding: 16px 22px;
-      min-width: 160px;
-    }
-
-    .hero-badge-label {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-
-    .hero-badge-text {
-      font-family: var(--serif-ja);
-      font-size: 0.85rem;
-      font-weight: 300;
-      line-height: 1.6;
-    }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 36px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      animation: fadeIn 1s ease 1.2s forwards;
-    }
-
-    .hero-scroll span {
-      font-family: var(--mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink-lt);
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 48px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; transform: scaleY(1); }
-      50% { opacity: 1; transform: scaleY(1.1); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    @media (max-width: 768px) {
-      .hero-section {
-        height: auto;
-      }
-      .hero {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-        min-height: auto;
-        height: auto;
-        padding-top: 88px;
-        padding-bottom: 40px;
-      }
-
-      .hero-image-wrap {
-        min-height: auto;
-        height: auto;
-        padding: 0 0 0;
-        margin-top: -20px;
-        order: -1;
-      }
-
-      .hero-image-frame {
-        width: clamp(220px, 65vw, 320px);
-      }
-
-      .hero-badge { display: none; }
-
-      .hero-content {
-        padding: 24px 0 16px;
-      }
-
-      .hero-scroll { display: none; }
-    }
-
-    /* ============================================
-       Divider
-    ============================================ */
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--beige-mid), transparent);
-    }
-
-    /* ============================================
-       Section: Mission
-    ============================================ */
-    .section-mission {
-      padding: clamp(80px, 12vh, 140px) 0;
-      background: var(--navy);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .section-mission::before {
-      content: '悠';
-      position: absolute;
-      top: 50%;
-      right: 5%;
-      transform: translateY(-50%);
-      font-family: var(--serif-ja);
-      font-size: clamp(180px, 30vw, 360px);
-      font-weight: 300;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(201, 169, 110, 0.12);
-      pointer-events: none;
-      line-height: 1;
-      user-select: none;
-    }
-
-    .mission-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 680px;
-    }
-
-    .mission-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 28px;
-    }
-
-    .mission-text {
-      font-family: var(--serif-ja);
-      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
-      font-weight: 300;
-      line-height: 2;
-      letter-spacing: 0.06em;
-      color: var(--white);
-    }
-
-    .mission-text em {
-      font-style: normal;
-      color: var(--gold);
-      border-bottom: 1px solid rgba(201, 169, 110, 0.5);
-    }
-
-    .mission-caption {
-      margin-top: 36px;
-      font-family: var(--sans-ja);
-      font-size: 0.82rem;
-      font-weight: 300;
-      line-height: 2;
-      color: rgba(255,255,255,0.55);
-      max-width: 500px;
-    }
-
-    /* ============================================
-       Section: About Teaser
-    ============================================ */
-    .section-about {
-      padding: clamp(80px, 12vh, 140px) 0;
-      background: var(--cream);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(40px, 8vw, 100px);
-      align-items: center;
-    }
-
-    .about-image-wrap {
-      position: relative;
-    }
-
-    .about-img {
-      width: 100%;
-      aspect-ratio: 4/5;
-      background: linear-gradient(145deg, var(--beige) 0%, var(--beige-mid) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .about-img-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .about-img-placeholder svg {
-      width: 60px;
-      opacity: 0.25;
-    }
-
-    .about-img-placeholder span {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      color: var(--ink-lt);
-      text-transform: uppercase;
-    }
-
-    .about-deco-line {
-      position: absolute;
-      bottom: -16px;
-      left: -16px;
-      width: 60%;
-      height: 60%;
-      border-left: 1px solid var(--gold);
-      border-bottom: 1px solid var(--gold);
-      pointer-events: none;
-    }
-
-    .about-heading {
-      font-family: var(--serif-ja);
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 300;
-      line-height: 1.8;
-      letter-spacing: 0.05em;
-      color: var(--navy);
-      margin: 16px 0 24px;
-    }
-
-    .about-body {
-      font-family: var(--sans-ja);
-      font-size: 0.88rem;
-      font-weight: 300;
-      line-height: 2.1;
-      color: var(--ink-mid);
-      margin-bottom: 36px;
-    }
-
-    .about-values {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-
-    .about-value-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-    }
-
-    .value-num {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      padding-top: 2px;
-      flex-shrink: 0;
-    }
-
-    .value-text {
-      font-family: var(--sans-ja);
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: var(--ink);
-      line-height: 1.7;
-    }
-
-    @media (max-width: 768px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .about-image-wrap {
-        max-width: 320px;
-        margin: 0 auto;
-      }
-    }
-
-    /* ============================================
-       Section: Services
-    ============================================ */
-    .section-services {
-      padding: clamp(80px, 12vh, 140px) 0;
-      background: var(--beige);
-    }
-
-    .section-header {
-      margin-bottom: clamp(48px, 8vh, 80px);
-    }
-
-    .section-heading {
-      font-family: var(--serif-ja);
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      color: var(--navy);
-      margin-top: 12px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-
-    .service-card {
-      background: var(--cream);
-      padding: clamp(32px, 5vw, 52px) clamp(24px, 4vw, 40px);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .service-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%; height: 3px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s var(--ease-out);
-    }
-
-    .service-card:hover {
-      background: var(--white);
-    }
-
-    .service-card:hover::after {
-      transform: scaleX(1);
-    }
-
-    .service-num {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--gold);
-      margin-bottom: 24px;
-    }
-
-    .service-icon {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 24px;
-      color: var(--navy);
-    }
-
-    .service-name-en {
-      font-family: var(--serif-en);
-      font-size: 1.1rem;
-      font-weight: 400;
-      font-style: italic;
-      color: var(--navy);
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
-    }
-
-    .service-name-ja {
-      font-family: var(--serif-ja);
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--navy);
-      letter-spacing: 0.08em;
-      margin-bottom: 20px;
-    }
-
-    .service-desc {
-      font-family: var(--sans-ja);
-      font-size: 0.82rem;
-      font-weight: 300;
-      line-height: 2;
-      color: var(--ink-mid);
-      margin-bottom: 28px;
-    }
-
-    .service-link {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: gap 0.25s ease;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .service-card:hover .service-link { gap: 14px; }
-
-    .service-link::after {
-      content: '→';
-      font-size: 0.9rem;
-      text-decoration: none;
-    }
-
-    .services-cta {
-      margin-top: 48px;
-      text-align: center;
-    }
-
-    @media (max-width: 900px) {
-      .services-grid {
-        grid-template-columns: 1fr;
-        gap: 2px;
-      }
-    }
-
-    /* ============================================
-       Section: Target
-    ============================================ */
-    .section-target {
-      padding: clamp(80px, 12vh, 140px) 0;
-      background: var(--cream);
-    }
-
-    .target-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(40px, 6vw, 80px);
-      margin-top: clamp(48px, 8vh, 80px);
-    }
-
-    .target-group {
-      position: relative;
-      padding: clamp(28px, 4vw, 44px);
-      border: 1px solid var(--beige-mid);
-      background: var(--white);
-    }
-
-    .target-group-label {
-      position: absolute;
-      top: -13px;
-      left: 24px;
-      background: var(--white);
-      padding: 0 10px;
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .target-heading {
-      font-family: var(--serif-ja);
-      font-size: 1.1rem;
-      font-weight: 400;
-      color: var(--navy);
-      margin-bottom: 20px;
-      line-height: 1.7;
-    }
-
-    .target-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .target-list li {
-      font-family: var(--sans-ja);
-      font-size: 0.83rem;
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--ink-mid);
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .target-list li::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 11px;
-      width: 8px; height: 1px;
-      background: var(--gold);
-    }
-
-    @media (max-width: 640px) {
-      .target-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ============================================
-       Section: Flow
-    ============================================ */
-    .section-flow {
-      padding: clamp(80px, 12vh, 140px) 0;
-      background: var(--navy);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .section-flow .section-label { color: var(--gold); }
-    .section-flow .section-heading { color: var(--white); }
-
-    .flow-steps {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 2px;
-      margin-top: clamp(48px, 8vh, 80px);
-      position: relative;
-    }
-
-    .flow-step {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: clamp(24px, 3vw, 36px) clamp(16px, 2.5vw, 28px);
-      position: relative;
-      transition: background 0.3s ease;
-    }
-
-    .flow-step:hover {
-      background: rgba(201, 169, 110, 0.08);
-    }
-
-    .flow-step-num {
-      font-family: var(--serif-en);
-      font-size: 3rem;
-      font-weight: 300;
-      color: rgba(201, 169, 110, 0.25);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    .flow-step-title {
-      font-family: var(--serif-ja);
-      font-size: 0.9rem;
-      font-weight: 400;
-      color: var(--white);
-      margin-bottom: 12px;
-      line-height: 1.6;
-    }
-
-    .flow-step-desc {
-      font-family: var(--sans-ja);
-      font-size: 0.75rem;
-      font-weight: 300;
-      line-height: 1.9;
-      color: rgba(255,255,255,0.5);
-    }
-
-    .flow-arrow {
-      position: absolute;
-      right: -14px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 28px;
-      height: 28px;
-      background: var(--navy);
-      border: 1px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      color: var(--gold);
-      font-size: 0.8rem;
-    }
-
-    .flow-step:last-child .flow-arrow { display: none; }
-
-    @media (max-width: 900px) {
-      .flow-steps {
-        grid-template-columns: 1fr;
-      }
-
-      .flow-arrow {
-        right: auto;
-        left: 50%;
-        top: auto;
-        bottom: -14px;
-        transform: translateX(-50%) rotate(90deg);
-      }
-    }
-
-    /* ============================================
-       Section: Strengths
-    ============================================ */
-    .section-strengths {
-      padding: clamp(80px, 12vh, 140px) 0;
-      background: var(--beige);
-    }
-
-    .strengths-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(24px, 4vw, 48px);
-      margin-top: clamp(48px, 8vh, 80px);
-    }
-
-    .strength-item {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .strength-number {
-      font-family: var(--serif-en);
-      font-size: 3.5rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--gold);
-      line-height: 1;
-      opacity: 0.6;
-    }
-
-    .strength-bar {
-      width: 40px;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    .strength-title {
-      font-family: var(--serif-ja);
-      font-size: 1.05rem;
-      font-weight: 400;
-      color: var(--navy);
-      line-height: 1.6;
-    }
-
-    .strength-body {
-      font-family: var(--sans-ja);
-      font-size: 0.83rem;
-      font-weight: 300;
-      line-height: 2;
-      color: var(--ink-mid);
-    }
-
-    @media (max-width: 768px) {
-      .strengths-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-    }
-
-    /* ============================================
-       Section: CTA
-    ============================================ */
-    .section-cta {
-      padding: clamp(80px, 14vh, 160px) 0;
-      background: var(--cream);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .section-cta::before {
-      content: 'Contact';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: var(--serif-en);
-      font-size: clamp(80px, 18vw, 200px);
-      font-weight: 300;
-      font-style: italic;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(28, 43, 58, 0.05);
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .cta-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 580px;
-      margin: 0 auto;
-    }
-
-    .cta-heading {
-      font-family: var(--serif-ja);
-      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--navy);
-      letter-spacing: 0.05em;
-      margin: 16px 0 20px;
-    }
-
-    .cta-sub {
-      font-family: var(--sans-ja);
-      font-size: 0.85rem;
-      font-weight: 300;
-      line-height: 2;
-      color: var(--ink-mid);
-      margin-bottom: 48px;
-    }
-
-    .cta-btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-gold {
-      font-family: var(--sans-ja);
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      color: var(--navy);
-      background: var(--gold);
-      border: 1px solid var(--gold);
-      padding: 16px 40px;
-      cursor: pointer;
-      transition: background 0.25s ease, color 0.25s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-gold:hover {
-      background: var(--navy);
-      color: var(--gold);
-      border-color: var(--navy);
-    }
-
-    /* ============================================
-       Footer
-    ============================================ */
-    footer {
-      background: var(--navy);
-      padding: clamp(48px, 8vh, 80px) 0 clamp(24px, 4vh, 40px);
-    }
-
-    .footer-inner {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: clamp(32px, 6vw, 80px);
-      padding-bottom: clamp(32px, 5vh, 60px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      margin-bottom: clamp(24px, 4vh, 40px);
-    }
-
-    .footer-logo-name {
-      font-family: var(--serif-ja);
-      font-size: 1.1rem;
-      font-weight: 400;
-      color: var(--white);
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-    }
-
-    .footer-logo-sub {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-    }
-
-    .footer-tagline {
-      font-family: var(--sans-ja);
-      font-size: 0.78rem;
-      font-weight: 300;
-      line-height: 2;
-      color: rgba(255,255,255,0.45);
-    }
-
-    .footer-col-title {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-    }
-
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .footer-links a {
-      font-family: var(--sans-ja);
-      font-size: 0.78rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.55);
-      transition: color 0.2s ease;
-    }
-
-    .footer-links a:hover { color: var(--gold); }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-copy {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.3);
-    }
-
-    .footer-policy a {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.3);
-      transition: color 0.2s ease;
-    }
-
-    .footer-policy a:hover { color: var(--gold); }
-
-    @media (max-width: 768px) {
-      .footer-inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-    }
-
-    /* ============================================
-       Floating CTA
-    ============================================ */
-    .floating-cta {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      z-index: 50;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      pointer-events: none;
-    }
-
-    .floating-cta.visible {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .floating-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--navy);
-      color: var(--white);
-      font-family: var(--sans-ja);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      padding: 12px 22px;
-      border: 1px solid var(--navy);
-      cursor: pointer;
-      box-shadow: 0 8px 32px rgba(28, 43, 58, 0.3);
-      transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .floating-btn:hover {
-      background: var(--gold);
-      color: var(--navy);
-      border-color: var(--gold);
-      box-shadow: 0 8px 32px rgba(201, 169, 110, 0.3);
-    }
-
-    .floating-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--gold);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    .floating-btn:hover .floating-dot {
-      background: var(--navy);
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    @media (max-width: 480px) {
-      .floating-cta { bottom: 20px; right: 16px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuki Saito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #111;
+    --paper: #f7f6f2;
+    --muted: #999;
+    --rule: rgba(0,0,0,0.08);
+    --ff-display: 'Cormorant Garamond', serif;
+    --ff-body: 'Noto Serif JP', serif;
+    --ff-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--ff-body);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 0 2rem;
+  }
+
+  .hero-label {
+    font-family: var(--ff-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2.4rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: var(--ff-display);
+    font-size: clamp(4.5rem, 11vw, 9rem);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.4rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.35s;
+  }
+  .hero-name em { font-style: italic; }
+
+  .hero-tagline {
+    font-family: var(--ff-display);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.55s;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--rule);
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.7s;
+  }
+  .hero-meta-item {
+    font-family: var(--ff-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-meta-sep { color: var(--rule); font-size: 1rem; }
+
+  .hero-bg {
+    position: absolute;
+    right: -0.04em;
+    top: 50%;
+    transform: translateY(-52%);
+    font-family: var(--ff-display);
+    font-size: clamp(12rem, 26vw, 22rem);
+    font-weight: 300;
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.045);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .section:first-of-type { border-top: none; }
+
+  .section-label {
+    font-family: var(--ff-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2.4rem;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+  .skill-row {
+    border: 1px solid var(--rule);
+    padding: 1.1rem 1.6rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1.4rem;
+    transition: background 0.18s;
+  }
+  .skill-row:hover { background: rgba(0,0,0,0.025); }
+  .skill-num { font-family: var(--ff-mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; min-width: 1.4rem; }
+  .skill-name { font-size: 0.88rem; font-weight: 300; letter-spacing: 0.02em; }
+
+  /* ── SERVICES ── */
+  .services-stack { display: flex; flex-direction: column; gap: 2px; }
+  .service-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.6rem 1.8rem;
+    border: 1px solid var(--rule);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.18s, color 0.18s;
+    gap: 1.5rem;
+  }
+  .service-link:hover { background: var(--ink); color: var(--paper); }
+  .service-link:hover .service-sub { color: rgba(255,255,255,0.45); }
+  .service-link:hover .service-arr { color: var(--paper); transform: translateX(3px); }
+  .service-left { display: flex; flex-direction: column; gap: 0.2rem; }
+  .service-sub {
+    font-family: var(--ff-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.18s;
+  }
+  .service-name {
+    font-family: var(--ff-display);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+  }
+  .service-arr {
+    font-size: 1.2rem;
+    color: var(--muted);
+    transition: transform 0.18s, color 0.18s;
+    flex-shrink: 0;
+  }
+  .service-soon {
+    opacity: 0.32;
+    pointer-events: none;
+  }
+
+  /* ── CONTACT ── */
+  .contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--ff-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    padding-bottom: 0.15rem;
+    transition: border-color 0.2s, opacity 0.2s;
+  }
+  .contact-email:hover { opacity: 0.55; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 1.8rem 0;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--ff-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .page { padding: 0 1.5rem; }
+    .hero-meta { flex-wrap: wrap; gap: 0.8rem; }
+    .hero-meta-sep { display: none; }
+  }
+</style>
 </head>
 <body>
+<div class="page">
 
-  <header id="main-header">
-    <div class="logo">
-      <svg class="logo-mark" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="36" height="36" stroke="#1C2B3A" stroke-width="1"/>
-        <rect x="4" y="4" width="30" height="30" stroke="#C9A96E" stroke-width="0.5" opacity="0.6"/>
-        <text x="19" y="26" text-anchor="middle" font-family="Noto Serif JP, serif" font-size="17" font-weight="400" fill="#1C2B3A" letter-spacing="0">悠</text>
-      </svg>
-      <div class="logo-text">
-        <span class="logo-name">Yuki Saito</span>
-        <span class="logo-sub">Known as "悠"</span>
-      </div>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg" aria-hidden="true">YS</div>
+    <div class="hero-main">
+      <p class="hero-label">Education × Systems × Creative</p>
+      <h1 class="hero-name">Yuki<br><em>Saito</em></h1>
+      <p class="hero-tagline">教育現場とテクノロジーの、架け橋へ。</p>
     </div>
-
-    <nav>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#flow">Flow</a>
-      <a href="#contact" class="nav-cta">お問い合わせ</a>
-    </nav>
-
-    <div class="hamburger" id="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
+    <div class="hero-meta">
+      <span class="hero-meta-item">System Advisor</span>
+      <span class="hero-meta-sep">·</span>
+      <span class="hero-meta-item">Human Engineer</span>
+      <span class="hero-meta-sep">·</span>
+      <span class="hero-meta-item">神奈川 / 東京</span>
     </div>
-  </header>
+  </section>
 
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="#about" class="mobile-link">About</a>
-    <a href="#services" class="mobile-link">Services</a>
-    <a href="#flow" class="mobile-link">Flow</a>
-    <a href="#contact" class="nav-cta mobile-link">お問い合わせ</a>
+  <!-- SKILLS -->
+  <div class="section reveal">
+    <p class="section-label">Skills</p>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-num">01</span><span class="skill-name">マネジメント業務</span></div>
+      <div class="skill-row"><span class="skill-num">02</span><span class="skill-name">人材育成</span></div>
+      <div class="skill-row"><span class="skill-num">03</span><span class="skill-name">営業代行</span></div>
+      <div class="skill-row"><span class="skill-num">04</span><span class="skill-name">Google Apps Script (GAS)</span></div>
+      <div class="skill-row"><span class="skill-num">05</span><span class="skill-name">APIテスト・技術検証</span></div>
+      <div class="skill-row"><span class="skill-num">06</span><span class="skill-name">IT導入サポート・業務改善提案</span></div>
+      <div class="skill-row"><span class="skill-num">07</span><span class="skill-name">クレーム対応・折衝</span></div>
+      <div class="skill-row"><span class="skill-num">08</span><span class="skill-name">文章構成・ライティング</span></div>
+      <div class="skill-row"><span class="skill-num">09</span><span class="skill-name">AI活用支援（Claude / Gemini / GPT）</span></div>
+      <div class="skill-row"><span class="skill-num">10</span><span class="skill-name">Web制作（HTML / CSS / JavaScript）</span></div>
+    </div>
   </div>
 
-  <section class="hero-section">
-  <div class="hero">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Consultant · Educator · Partner</p>
-      <h1 class="hero-catch">
-        あなたの時間を、<br>
-        もっと<em>価値あるもの</em>へ。
-      </h1>
-      <p class="hero-sub">
-        システム導入・教育支援・営業代行の3領域で、<br>
-        完全オーダーメイドの伴走を提供します。<br>
-        まずは、一度お話しください。
-      </p>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-primary">
-          まずは無料でご相談
-          <span class="btn-arrow">→</span>
-        </a>
-        <a href="#services" class="btn-secondary">サービスを見る</a>
-      </div>
-    </div>
-
-    <div class="hero-image-wrap">
-      <div class="hero-image-frame">
-        <div class="hero-photo">
-          <div class="hero-photo-placeholder">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="28" r="16" stroke="#7A7A7A" stroke-width="1.5"/>
-              <path d="M10 72c0-16.569 13.431-30 30-30s30 13.431 30 30" stroke="#7A7A7A" stroke-width="1.5"/>
-            </svg>
-            <span>Photo</span>
-          </div>
+  <!-- SERVICES -->
+  <div class="section reveal">
+    <p class="section-label">Services</p>
+    <div class="services-stack">
+      <a class="service-link" href="https://your-fundia-url.com" target="_blank" rel="noopener">
+        <div class="service-left">
+          <span class="service-sub">Education</span>
+          <span class="service-name">Fundia Online</span>
         </div>
-        <div class="hero-badge">
-          <div class="hero-badge-label">Mission</div>
-          <div class="hero-badge-text">多くの幸せを<br>掴むために。</div>
+        <span class="service-arr">→</span>
+      </a>
+      <a class="service-link" href="https://your-card-url.com" target="_blank" rel="noopener">
+        <div class="service-left">
+          <span class="service-sub">Business</span>
+          <span class="service-name">Digital Card</span>
         </div>
+        <span class="service-arr">→</span>
+      </a>
+      <div class="service-link service-soon">
+        <div class="service-left">
+          <span class="service-sub">Coming Soon</span>
+          <span class="service-name">Next Service</span>
+        </div>
+        <span class="service-arr">→</span>
       </div>
     </div>
   </div>
-  </section>
 
-  <section class="section-mission">
-    <div class="container">
-      <div class="mission-inner reveal">
-        <p class="mission-label">Our Mission</p>
-        <p class="mission-text">
-          一人ひとりの<em>時間単価</em>を引き上げ、<br>
-          人生を豊かにする。
-        </p>
-        <p class="mission-caption">
-          複雑な課題も、あなたの言葉で整理し、あなたのペースで前に進む。
-          それが私たちの約束です。マニュアル通りの提案はしません。
-          完全オーダーメイドで、最後まで責任を持って伴走します。
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- CONTACT -->
+  <div class="section reveal">
+    <p class="section-label">Contact</p>
+    <a class="contact-email" href="mailto:your@email.com">your@email.com</a>
+  </div>
 
-  <section class="section-about" id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-image-wrap reveal">
-          <div class="about-img">
-            <div class="about-img-placeholder">
-              <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="30" cy="20" r="12" stroke="#7A7A7A" stroke-width="1.2"/>
-                <path d="M6 54c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#7A7A7A" stroke-width="1.2"/>
-              </svg>
-              <span>Casual Photo</span>
-            </div>
-          </div>
-          <div class="about-deco-line"></div>
-        </div>
-
-        <div class="about-content reveal reveal-delay-2">
-          <p class="section-label">About</p>
-          <h2 class="about-heading">
-            「何をすれば？」から<br>一緒に考えます。
-          </h2>
-          <p class="about-body">
-            はじめまして、Yuki Saito です。皆さまからは「<strong>悠</strong>」と呼ばれています。<br><br>
-            システムコンサルタント・教育コンサルタント・営業代行者として、
-            個人・中小企業・教育機関のみなさまに向き合ってきました。
-            課題は複雑でも、解決の糸口はいつもシンプルです。
-            あなたの状況・目的・ペースに合わせた、完全オーダーメイドの伴走をお約束します。
-          </p>
-          <div class="about-values">
-            <div class="about-value-item">
-              <span class="value-num">01</span>
-              <span class="value-text">完全オーダーメイド対応 ― パッケージではなく、あなた専用の設計</span>
-            </div>
-            <div class="about-value-item">
-              <span class="value-num">02</span>
-              <span class="value-text">フルコミットの伴走 ― 作って終わりではなく、最後まで責任を持つ</span>
-            </div>
-            <div class="about-value-item">
-              <span class="value-num">03</span>
-              <span class="value-text">誠実な提案 ― 自信を持っておすすめできることだけをご提案</span>
-            </div>
-          </div>
-          <a href="/about" class="btn-secondary" style="display:inline-block;">詳しく見る</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-services" id="services">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-label">Services</p>
-        <h2 class="section-heading">3つの事業領域</h2>
-      </div>
-
-      <div class="services-grid">
-        <div class="service-card reveal reveal-delay-1">
-          <p class="service-num">01</p>
-          <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="8" width="40" height="28" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M16 36v4M32 36v4M12 40h24" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M14 20h20M14 26h12" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="34" cy="26" r="2" fill="currentColor"/>
-          </svg>
-          <p class="service-name-en">System Consulting</p>
-          <p class="service-name-ja">組織システムコンサルティング</p>
-          <p class="service-desc">
-            IT導入に関心はあるが進められていない中小企業・個人事業主の方へ。
-            業務の現状をヒアリングし、最適なシステム設計をゼロから一緒に考えます。
-          </p>
-          <a href="/services/system" class="service-link">詳しく見る</a>
-        </div>
-
-        <div class="service-card reveal reveal-delay-2">
-          <p class="service-num">02</p>
-          <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 38V16l16-8 16 8v22" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="18" y="26" width="12" height="12" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="24" cy="18" r="4" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-          <p class="service-name-en">Education Consulting</p>
-          <p class="service-name-ja">教育・学習支援コンサルティング</p>
-          <p class="service-desc">
-            子どもの教育に悩む保護者・施設管理者の方へ。
-            一人ひとりの特性と課題に寄り添い、継続できる学習環境づくりをサポートします。
-          </p>
-          <a href="/services/education" class="service-link">詳しく見る</a>
-        </div>
-
-        <div class="service-card reveal reveal-delay-3">
-          <p class="service-num">03</p>
-          <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 32l10-10 8 8 14-18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="40" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M36 40H12v-6h24v6z" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-          <p class="service-name-en">Sales Agency</p>
-          <p class="service-name-ja">営業代行</p>
-          <p class="service-desc">
-            私が自信を持っておすすめできる商品・サービスのみを取り扱います。
-            量より質を大切に、信頼できる相手への誠実な橋渡しをします。
-          </p>
-          <a href="/services/sales" class="service-link">詳しく見る</a>
-        </div>
-      </div>
-
-      <div class="services-cta reveal">
-        <p style="font-family:var(--sans-ja);font-size:0.82rem;color:var(--ink-lt);margin-bottom:20px;">
-          どのサービスか迷っている方も、まずはご相談ください。
-        </p>
-        <a href="#contact" class="btn-primary">
-          無料相談はこちら <span class="btn-arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-target">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-label">For You</p>
-        <h2 class="section-heading">こんな方へ</h2>
-      </div>
-
-      <div class="target-grid">
-        <div class="target-group reveal reveal-delay-1">
-          <p class="target-group-label">Business</p>
-          <p class="target-heading">ITシステムに<br>お困りの経営者・事業主の方</p>
-          <ul class="target-list">
-            <li>ITツールを導入したいが何から始めればよいか分からない</li>
-            <li>業務が属人化していて効率が悪い</li>
-            <li>社内にITに詳しい人材がいない</li>
-            <li>コストをかけずに業務を改善したい</li>
-          </ul>
-        </div>
-
-        <div class="target-group reveal reveal-delay-2">
-          <p class="target-group-label">Education</p>
-          <p class="target-heading">お子さまの教育に<br>悩む保護者・施設の方</p>
-          <ul class="target-list">
-            <li>子どもへの関わり方がわからない</li>
-            <li>学習習慣が身につかず困っている</li>
-            <li>子ども向け施設で教育プログラムを整備したい</li>
-            <li>子どもの特性に合った指導法を知りたい</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-flow" id="flow">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-label">How It Works</p>
-        <h2 class="section-heading" style="color:var(--white);">ご依頼の流れ</h2>
-      </div>
-
-      <div class="flow-steps">
-        <div class="flow-step reveal reveal-delay-1">
-          <div class="flow-step-num">01</div>
-          <p class="flow-step-title">お問い合わせ</p>
-          <p class="flow-step-desc">フォームよりお気軽にご連絡ください。どんな小さな疑問も歓迎します。</p>
-          <div class="flow-arrow">→</div>
-        </div>
-        <div class="flow-step reveal reveal-delay-2">
-          <div class="flow-step-num">02</div>
-          <p class="flow-step-title">ヒアリング（無料）</p>
-          <p class="flow-step-desc">オンラインまたは対面で、現状・課題・ご要望をお聞きします（30〜60分）。</p>
-          <div class="flow-arrow">→</div>
-        </div>
-        <div class="flow-step reveal reveal-delay-3">
-          <div class="flow-step-num">03</div>
-          <p class="flow-step-title">プランご提案</p>
-          <p class="flow-step-desc">内容をもとに最適なサービスと概算費用をご提案します。</p>
-          <div class="flow-arrow">→</div>
-        </div>
-        <div class="flow-step reveal reveal-delay-4">
-          <div class="flow-step-num">04</div>
-          <p class="flow-step-title">ご契約</p>
-          <p class="flow-step-desc">ご納得いただけたらご契約。進め方・スケジュールを一緒に決めます。</p>
-          <div class="flow-arrow">→</div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-step-num">05</div>
-          <p class="flow-step-title">伴走・納品</p>
-          <p class="flow-step-desc">進捗を共有しながら、完成まで責任を持って対応します。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-strengths">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-label">Why Choose Me</p>
-        <h2 class="section-heading">選ばれる理由</h2>
-      </div>
-
-      <div class="strengths-grid">
-        <div class="strength-item reveal reveal-delay-1">
-          <div class="strength-number">I</div>
-          <div class="strength-bar"></div>
-          <p class="strength-title">完全オーダーメイド対応</p>
-          <p class="strength-body">
-            パッケージ商品ではありません。あなたの状況・予算・目標に合わせて、
-            内容をゼロから設計します。「型」にはめた提案は一切しません。
-          </p>
-        </div>
-        <div class="strength-item reveal reveal-delay-2">
-          <div class="strength-number">II</div>
-          <div class="strength-bar"></div>
-          <p class="strength-title">フルコミットの伴走スタイル</p>
-          <p class="strength-body">
-            「作って終わり」ではありません。疑問が生じたとき、思うように進まないとき、
-            いつでも相談できる体制を大切にしています。
-          </p>
-        </div>
-        <div class="strength-item reveal reveal-delay-3">
-          <div class="strength-number">III</div>
-          <div class="strength-bar"></div>
-          <p class="strength-title">BtoB・BtoC 両対応の柔軟性</p>
-          <p class="strength-body">
-            法人経営者から個人・保護者まで、幅広いステージの方をサポートしてきた
-            経験があります。難しい言葉は使いません。わかるまで一緒に考えます。
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section style="padding: clamp(60px, 10vh, 100px) 0; background: var(--cream);">
-    <div class="container">
-      <div class="reveal" style="max-width: 640px; margin: 0 auto; text-align: center;">
-        <p class="section-label" style="text-align:center;">Pricing</p>
-        <h2 class="section-heading" style="text-align:center; margin-bottom: 24px;">料金について</h2>
-        <p style="font-family:var(--sans-ja); font-size:0.85rem; font-weight:300; line-height:2; color:var(--ink-mid); margin-bottom: 32px;">
-          すべてのサービスは、お客様の状況・規模・目標に合わせた
-          完全オーダーメイドのお見積りです。
-          まずはヒアリング（無料）でお話を聞かせてください。
-        </p>
-        <div style="display: inline-flex; flex-direction: column; align-items: center; gap: 8px; background: var(--beige); padding: 28px 48px; border: 1px solid var(--beige-mid);">
-          <span style="font-family:var(--mono); font-size:0.62rem; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase;">Starting from</span>
-          <span style="font-family:var(--serif-en); font-size:2.4rem; font-weight:300; color:var(--navy);">¥15,000 <span style="font-size:1rem; font-family:var(--sans-ja); font-weight:300;">/ hour〜</span></span>
-          <span style="font-family:var(--sans-ja); font-size:0.75rem; font-weight:300; color:var(--ink-lt);">※ 内容により異なります。まずはご相談ください。</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-cta" id="contact">
-    <div class="container">
-      <div class="cta-inner reveal">
-        <span class="tag">Contact</span>
-        <h2 class="cta-heading">
-          まず、話すだけで<br>大丈夫です。
-        </h2>
-        <p class="cta-sub">
-          「まだ具体的でない」「相談していいか分からない」<br>
-          そんな段階でも、お気軽にどうぞ。<br>
-          一緒に、最初の一歩を考えましょう。
-        </p>
-        <div class="cta-btns">
-          <a href="/contact" class="btn-gold">
-            問い合わせフォームへ <span>→</span>
-          </a>
-          <a href="/flow" class="btn-secondary">ご依頼の流れを見る</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- FOOTER -->
   <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <div class="footer-logo-name">Yuki Saito</div>
-          <div class="footer-logo-sub">Known as "悠" — Consultant</div>
-          <p class="footer-tagline">
-            システム・教育・営業の3領域で、<br>
-            あなたの時間単価を引き上げます。<br>
-            多くの幸せを掴むために。
-          </p>
-        </div>
-
-        <div>
-          <p class="footer-col-title">Navigation</p>
-          <ul class="footer-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/services">Services</a></li>
-            <li><a href="/flow">導入の流れ</a></li>
-            <li><a href="/contact">お問い合わせ</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <p class="footer-col-title">Services</p>
-          <ul class="footer-links">
-            <li><a href="/services/system">システムコンサル</a></li>
-            <li><a href="/services/education">教育コンサル</a></li>
-            <li><a href="/services/sales">営業代行</a></li>
-            <li><a href="/lp">LP一覧</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2026 Yuki Saito. All rights reserved.</p>
-        <div class="footer-policy">
-          <a href="/privacy">プライバシーポリシー</a>
-        </div>
-      </div>
-    </div>
+    <span>© 2025 Yuki Saito</span>
+    <span>Kanagawa / Tokyo</span>
   </footer>
 
-  <div class="floating-cta" id="floating-cta">
-    <a href="#contact" class="floating-btn">
-      <span class="floating-dot"></span>
-      お問い合わせ
-    </a>
-  </div>
+</div>
 
-  <script>
-    // Header scroll
-    const header = document.getElementById('main-header');
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 40);
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
     });
-
-    // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-    });
-
-    document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileMenu.classList.remove('open');
-      });
-    });
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-    reveals.forEach(el => observer.observe(el));
-
-    // Floating CTA
-    const floatingCta = document.getElementById('floating-cta');
-    window.addEventListener('scroll', () => {
-      floatingCta.classList.toggle('visible', window.scrollY > 400);
-    });
-  </script>
-
+  }, { threshold: 0.1 });
+  els.forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
