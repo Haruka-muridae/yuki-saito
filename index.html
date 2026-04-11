@@ -3,348 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yuki Saito</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <title>Yuki Saito</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Serif JP', serif; background: #fff; color: #0f2740; }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    .nav-link { font-size: 12px; color: #4a5568; letter-spacing: .08em; text-decoration: none; transition: color .2s; }
+    .nav-link:hover { color: #1a3a5c; }
+    .sec-label { font-size: 11px; letter-spacing: .2em; color: #1a3a5c; font-family: sans-serif; white-space: nowrap; }
+    .sec-rule { flex: 1; height: .5px; background: #d6e0eb; }
+    .skill-card { background: #fff; padding: 1.5rem; border: 1.5px solid transparent; transition: border-color .2s; }
+    .skill-card:hover { border-color: #1a3a5c; }
+    .lp-card { background: #fff; border: 1px solid #d6e0eb; border-radius: 6px; overflow: hidden; transition: box-shadow .2s, border-color .2s; }
+    .lp-card:hover { border-color: #1a3a5c; box-shadow: 0 4px 12px rgba(26,58,92,.08); }
+    .card-link-badge { display: inline-block; font-size: 10px; font-family: sans-serif; letter-spacing: .08em; color: #7a9abb; border: 1px solid #d6e0eb; border-radius: 3px; padding: 2px 7px; margin-top: 6px; }
+    .empty-box { width: 100%; padding: 2.5rem 1rem; border: 1px dashed #c8d8e8; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #a8c0d4; font-family: sans-serif; letter-spacing: .08em; }
+    .thumb-preview { width: 100%; height: 130px; object-fit: cover; display: block; background: #f5f8fc; }
+    .thumb-placeholder { width: 100%; height: 130px; background: #f5f8fc; display: flex; align-items: center; justify-content: center; }
+    .avatar-wrap { width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 3px solid #fff; box-shadow: 0 2px 16px rgba(26,58,92,.15); flex-shrink: 0; background: #dce8f0; display: flex; align-items: center; justify-content: center; }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    nav { position: sticky; top: 0; background: #fff; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; border-bottom: 1px solid #d6e0eb; }
+    section { padding: 3rem 2rem 2rem; }
+    section + section { padding-top: 0; }
 
-  :root {
-    --ink: #111;
-    --paper: #f7f6f2;
-    --muted: #999;
-    --rule: rgba(0,0,0,0.08);
-    --ff-display: 'Cormorant Garamond', serif;
-    --ff-body: 'Noto Serif JP', serif;
-    --ff-mono: 'DM Mono', monospace;
-  }
+@media (max-width: 640px) {
+      .nav-links { display: none; }
+      h1 { font-size: 20px !important; }
+      .avatar-wrap { width: 100px; height: 100px; }
+      .grid-3 { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
 
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--ff-body);
-    font-weight: 300;
-    line-height: 1.8;
-    overflow-x: hidden;
-  }
-
-  /* ── LAYOUT ── */
-  .page {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 0 3rem;
-  }
-
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: 1fr auto;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6rem 0 2rem;
-  }
-
-  .hero-label {
-    font-family: var(--ff-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 2.4rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.2s;
-  }
-
-  .hero-name {
-    font-family: var(--ff-display);
-    font-size: clamp(4.5rem, 11vw, 9rem);
-    font-weight: 300;
-    line-height: 0.92;
-    letter-spacing: -0.02em;
-    margin-bottom: 2.4rem;
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 0.35s;
-  }
-  .hero-name em { font-style: italic; }
-
-  .hero-tagline {
-    font-family: var(--ff-display);
-    font-size: clamp(1.05rem, 2vw, 1.35rem);
-    font-style: italic;
-    font-weight: 300;
-    color: var(--muted);
-    max-width: 480px;
-    line-height: 1.6;
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 0.55s;
-  }
-
-  .hero-meta {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--rule);
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 0.7s;
-  }
-  .hero-meta-item {
-    font-family: var(--ff-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .hero-meta-sep { color: var(--rule); font-size: 1rem; }
-
-  .hero-bg {
-    position: absolute;
-    right: -0.04em;
-    top: 50%;
-    transform: translateY(-52%);
-    font-family: var(--ff-display);
-    font-size: clamp(12rem, 26vw, 22rem);
-    font-weight: 300;
-    font-style: italic;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(0,0,0,0.045);
-    pointer-events: none;
-    user-select: none;
-    line-height: 1;
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--rule);
-    margin: 0;
-  }
-
-  /* ── SECTIONS ── */
-  .section {
-    padding: 5rem 0;
-    border-top: 1px solid var(--rule);
-  }
-  .section:first-of-type { border-top: none; }
-
-  .section-label {
-    font-family: var(--ff-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 2.4rem;
-  }
-
-  /* ── SKILLS ── */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-  }
-  .skill-row {
-    border: 1px solid var(--rule);
-    padding: 1.1rem 1.6rem;
-    display: flex;
-    align-items: baseline;
-    gap: 1.4rem;
-    transition: background 0.18s;
-  }
-  .skill-row:hover { background: rgba(0,0,0,0.025); }
-  .skill-num { font-family: var(--ff-mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; min-width: 1.4rem; }
-  .skill-name { font-size: 0.88rem; font-weight: 300; letter-spacing: 0.02em; }
-
-  /* ── SERVICES ── */
-  .services-stack { display: flex; flex-direction: column; gap: 2px; }
-  .service-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.6rem 1.8rem;
-    border: 1px solid var(--rule);
-    text-decoration: none;
-    color: var(--ink);
-    transition: background 0.18s, color 0.18s;
-    gap: 1.5rem;
-  }
-  .service-link:hover { background: var(--ink); color: var(--paper); }
-  .service-link:hover .service-sub { color: rgba(255,255,255,0.45); }
-  .service-link:hover .service-arr { color: var(--paper); transform: translateX(3px); }
-  .service-left { display: flex; flex-direction: column; gap: 0.2rem; }
-  .service-sub {
-    font-family: var(--ff-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    transition: color 0.18s;
-  }
-  .service-name {
-    font-family: var(--ff-display);
-    font-size: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 0.03em;
-  }
-  .service-arr {
-    font-size: 1.2rem;
-    color: var(--muted);
-    transition: transform 0.18s, color 0.18s;
-    flex-shrink: 0;
-  }
-  .service-soon {
-    opacity: 0.32;
-    pointer-events: none;
-  }
-
-  /* ── CONTACT ── */
-  .contact-email {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-    font-family: var(--ff-mono);
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-    padding-bottom: 0.15rem;
-    transition: border-color 0.2s, opacity 0.2s;
-  }
-  .contact-email:hover { opacity: 0.55; }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--rule);
-    padding: 1.8rem 0;
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--ff-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-  }
-
-  /* ── REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    .page { padding: 0 1.5rem; }
-    .hero-meta { flex-wrap: wrap; gap: 0.8rem; }
-    .hero-meta-sep { display: none; }
-  }
+}
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg" aria-hidden="true">YS</div>
-    <div class="hero-main">
-      <p class="hero-label">Education × Systems × Creative</p>
-      <h1 class="hero-name">Yuki<br><em>Saito</em></h1>
-      <p class="hero-tagline">教育現場とテクノロジーの、架け橋へ。</p>
-    </div>
-    <div class="hero-meta">
-      <span class="hero-meta-item">System Advisor</span>
-      <span class="hero-meta-sep">·</span>
-      <span class="hero-meta-item">Human Engineer</span>
-      <span class="hero-meta-sep">·</span>
-      <span class="hero-meta-item">神奈川 / 東京</span>
-    </div>
-  </section>
+  <nav>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:6px;height:24px;background:#1a3a5c;"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:.18em;color:#1a3a5c;">YUKI SAITO</span>
+</div>
+    <div class="nav-links" style="display:flex;gap:2rem;">
+      <a class="nav-link" href="#skills">スキル</a>
+      <a class="nav-link" href="#services">サービス</a>
+      <a class="nav-link" href="#hobbies">趣味・ライク</a>
+      <a class="nav-link" href="#contact">お問い合わせ</a>
 
-  <!-- SKILLS -->
-  <div class="section reveal">
-    <p class="section-label">Skills</p>
-    <div class="skills-grid">
-      <div class="skill-row"><span class="skill-num">01</span><span class="skill-name">マネジメント業務</span></div>
-      <div class="skill-row"><span class="skill-num">02</span><span class="skill-name">人材育成</span></div>
-      <div class="skill-row"><span class="skill-num">03</span><span class="skill-name">営業代行</span></div>
-      <div class="skill-row"><span class="skill-num">04</span><span class="skill-name">Google Apps Script (GAS)</span></div>
-      <div class="skill-row"><span class="skill-num">05</span><span class="skill-name">APIテスト・技術検証</span></div>
-      <div class="skill-row"><span class="skill-num">06</span><span class="skill-name">IT導入サポート・業務改善提案</span></div>
-      <div class="skill-row"><span class="skill-num">07</span><span class="skill-name">クレーム対応・折衝</span></div>
-      <div class="skill-row"><span class="skill-num">08</span><span class="skill-name">文章構成・ライティング</span></div>
-      <div class="skill-row"><span class="skill-num">09</span><span class="skill-name">AI活用支援（Claude / Gemini / GPT）</span></div>
-      <div class="skill-row"><span class="skill-num">10</span><span class="skill-name">Web制作（HTML / CSS / JavaScript）</span></div>
-    </div>
-  </div>
-
-  <!-- SERVICES -->
-  <div class="section reveal">
-    <p class="section-label">Services</p>
-    <div class="services-stack">
-      <a class="service-link" href="https://your-fundia-url.com" target="_blank" rel="noopener">
-        <div class="service-left">
-          <span class="service-sub">Education</span>
-          <span class="service-name">Fundia Online</span>
-        </div>
-        <span class="service-arr">→</span>
-      </a>
-      <a class="service-link" href="https://your-card-url.com" target="_blank" rel="noopener">
-        <div class="service-left">
-          <span class="service-sub">Business</span>
-          <span class="service-name">Digital Card</span>
-        </div>
-        <span class="service-arr">→</span>
-      </a>
-      <div class="service-link service-soon">
-        <div class="service-left">
-          <span class="service-sub">Coming Soon</span>
-          <span class="service-name">Next Service</span>
-        </div>
-        <span class="service-arr">→</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTACT -->
-  <div class="section reveal">
-    <p class="section-label">Contact</p>
-    <a class="contact-email" href="mailto:your@email.com">your@email.com</a>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <span>© 2025 Yuki Saito</span>
-    <span>Kanagawa / Tokyo</span>
-  </footer>
 
 </div>
+  </nav>
 
+  <header style="padding:3rem 2rem;background:#f5f8fc;border-bottom:1px solid #d6e0eb;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:2rem;">
+      <div style="flex:1;">
+        <h1 style="font-size:28px;font-weight:400;letter-spacing:.06em;color:#0f2740;margin:0;line-height:1.5;">
+          齋藤 悠貴<span style="font-size:17px;color:#4a6a8a;font-weight:300;margin-left:1rem;font-family:'Cormorant Garamond',serif;letter-spacing:.15em;">Yuki Saito</span>
+        </h1>
+        <div id="site-location"></div>
+        <div id="site-bio"></div>
+        <div style="margin-top:1.5rem;width:48px;height:2px;background:#1a3a5c;"></div>
+      </div>
+      <div class="avatar-wrap" id="avatar-wrap">
+        <span style="font-size:11px;color:#7a9abb;font-family:sans-serif;text-align:center;line-height:1.6;" id="photo-placeholder">写真<br>未設定</span>
+        <img id="site-photo" src="" alt="profile" style="display:none;width:100%;height:100%;object-fit:cover;">
+</div>
+</div>
+  <section id="skills">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;">
+      <span class="sec-label">スキル・専門領域</span>
+      <div class="sec-rule"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:12px;color:#7a9abb;letter-spacing:.1em;">Skills</span>
+</div>
+    <div id="skill-display"><div class="empty-box">読み込み中...</div></div>
+</section>
+
+
+  <section id="services">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;">
+      <span class="sec-label">サービス・商品</span>
+      <div class="sec-rule"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:12px;color:#7a9abb;letter-spacing:.1em;">Services</span>
+</div>
+    <div id="service-display"><div class="empty-box">読み込み中...</div></div>
+</section>
+
+  <section id="hobbies">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;">
+      <span class="sec-label">趣味・ライク</span>
+      <div class="sec-rule"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:12px;color:#7a9abb;letter-spacing:.1em;">Likes</span>
+
+</div>
+    <div id="hobby-display"><div class="empty-box">読み込み中...</div></div>
+</section>
+
+  <section id="contact" style="padding-bottom:3rem;">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;">
+      <span class="sec-label">お問い合わせ</span>
+      <div class="sec-rule"></div>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:12px;color:#7a9abb;letter-spacing:.1em;">Contact</span>
+
+</div>
+    <div style="display:flex;gap:2rem;flex-wrap:wrap;">
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <span style="font-size:11px;color:#7a9abb;font-family:sans-serif;letter-spacing:.1em;">Email</span>
+        <span style="font-size:13px;color:#0f2740;">yuki.s@tsam-jp.com</span>
+
+</div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <span style="font-size:11px;color:#7a9abb;font-family:sans-serif;letter-spacing:.1em;">Phone</span>
+        <span style="font-size:13px;color:#0f2740;">090-1261-4930</span>
+</div>
+</div>
+</section>
+  <footer style="padding:1.5rem 2rem;border-top:1px solid #d6e0eb;background:#f5f8fc;">
+    <p style="font-size:11px;color:#7a9abb;margin:0;letter-spacing:.08em;font-family:sans-serif;">© Yuki Saito</p>
+</footer>
+</div>
 <script>
-  const els = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  els.forEach(el => obs.observe(el));
+var GAS_URL = 'https://script.google.com/macros/s/AKfycby5ZWHLSUU2EBMm_8oKC9FkLqsFnsqSUMA6typp3RyZTIJJiX_RifWbhPM73I1vhRmm/exec';
+
+function gasGet(sheet, cb) {
+  var s = document.createElement('script');
+  var cbName = '_cb_' + sheet + '_' + Date.now();
+  window[cbName] = function(data) { cb(data); delete window[cbName]; document.body.removeChild(s); };
+  s.src = GAS_URL + '?action=get&sheet=' + sheet + '&callback=' + cbName;
+  document.body.appendChild(s);
+}
+
+function renderProfile(p) {
+  var locEl = document.getElementById('site-location');
+  var bioEl = document.getElementById('site-bio');
+  var photoEl = document.getElementById('site-photo');
+  var placeholder = document.getElementById('photo-placeholder');
+  locEl.innerHTML = p.location ? '<p style="font-size:13px;color:#4a6a8a;margin:.75rem 0 0;line-height:1.8;">' + p.location + '</p>' : '';
+  bioEl.innerHTML = p.bio ? '<p style="font-size:13px;color:#4a6a8a;margin:.75rem 0 0;line-height:1.9;max-width:420px;">' + p.bio + '</p>' : '';
+  if (p.photo) {
+    photoEl.src = p.photo;
+    photoEl.style.display = 'block';
+    placeholder.style.display = 'none';
+  }
+}
+
+function renderSkills(arr) {
+  var el = document.getElementById('skill-display');
+  if (!arr || !arr.length) { el.innerHTML = '<div class="empty-box">スキルはまだ登録されていません</div>'; return; }
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#d6e0eb;border:1px solid #d6e0eb;">' +
+    arr.map(function(s, i) {
+      return '<div class="skill-card"><p style="font-size:11px;letter-spacing:.2em;color:#7a9abb;margin:0 0 .6rem;font-family:sans-serif;">' + String(i+1).padStart(2,'0') + '</p><p style="font-size:14px;color:#0f2740;margin:0 0 .4rem;line-height:1.8;">' + s.name + '</p><p style="font-size:11px;color:#7a9abb;margin:0;letter-spacing:.1em;font-family:sans-serif;">' + s.sub + '</p></div>';
+    }).join('') + '</div>';
+}
+
+function renderCards(arr, displayId, emptyMsg) {
+  var el = document.getElementById(displayId);
+  if (!arr || !arr.length) { el.innerHTML = '<div class="empty-box">' + emptyMsg + '</div>'; return; }
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;" class="grid-3">' +
+    arr.map(function(item) {
+      var thumbHtml = item.img
+        ? '<img src="' + item.img + '" class="thumb-preview" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">' + '<div class="thumb-placeholder" style="display:none;"><span style="font-size:11px;color:#7a9abb;font-family:sans-serif;">No image</span></div>'
+        : '<div class="thumb-placeholder"><span style="font-size:11px;color:#7a9abb;font-family:sans-serif;">No image</span></div>';
+      var wrapS = item.url ? '<a href="' + item.url + '" target="_blank" style="text-decoration:none;display:block;">' : '<div>';
+      var wrapE = item.url ? '</a>' : '</div>';
+      var badge = item.url ? '<span class="card-link-badge">LINK</span>' : '';
+      return '<div class="lp-card">' + wrapS + thumbHtml + wrapE + '<div style="padding:.875rem 1rem;"><p style="font-size:13px;color:#0f2740;margin:0 0 .3rem;line-height:1.6;">' + item.title + '</p><p style="font-size:11px;color:#7a9abb;font-family:sans-serif;letter-spacing:.05em;margin:0;">' + item.desc + '</p>' + badge + '</div></div>';
+    }).join('') + '</div>';
+}
+
+// JSONP方式でデータ取得 — GASがcallbackパラメータを返せない場合はfetchに切り替え
+fetch(GAS_URL + '?action=get&sheet=profile')
+  .then(function(r){ return r.json(); })
+  .then(function(r){ if(r.data) renderProfile(r.data); })
+  .catch(function(){});
+
+fetch(GAS_URL + '?action=get&sheet=skills')
+  .then(function(r){ return r.json(); })
+  .then(function(r){ renderSkills(r.data); })
+  .catch(function(){ document.getElementById('skill-display').innerHTML='<div class="empty-box">データを取得できませんでした</div>'; });
+
+fetch(GAS_URL + '?action=get&sheet=services')
+  .then(function(r){ return r.json(); })
+  .then(function(r){ renderCards(r.data,'service-display','サービスはまだ登録されていません'); })
+  .catch(function(){ document.getElementById('service-display').innerHTML='<div class="empty-box">データを取得できませんでした</div>'; });
+
+fetch(GAS_URL + '?action=get&sheet=hobbies')
+  .then(function(r){ return r.json(); })
+  .then(function(r){ renderCards(r.data,'hobby-display','趣味はまだ登録されていません'); })
+  .catch(function(){ document.getElementById('hobby-display').innerHTML='<div class="empty-box">データを取得できませんでした</div>'; });
 </script>
+
+
 </body>
 </html>
